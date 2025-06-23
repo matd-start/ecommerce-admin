@@ -58,7 +58,7 @@ Proyecto de ecommerce desarrollado con React, TypeScript, Tailwind CSS y Supabas
 
 ## 🚀 Objetivo
 
-Permitir la gestión y compra de componentes electrónicos para proyectos de robótica y makers, una plataforma web con funcionalidades tanto para administradores de negocio como para clientes.
+
 Permitir la gestión y compra de componentes electrónicos para proyectos de robótica y makers, desde una plataforma web con funcionalidades tanto para administradores de negocio como para clientes.
 
 ---

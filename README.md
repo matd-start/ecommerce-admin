@@ -52,7 +52,7 @@ export default tseslint.config({
   },
 })
 ```
-# 📱 Ecommerce - (Versión Administrador)
+# Ecommerce - (Versión Administrador)
 
 Proyecto de ecommerce desarrollado con React, TypeScript, Tailwind CSS y Supabase.
 

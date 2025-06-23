@@ -1,14 +1,23 @@
-import './App.css'
+
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
+import CartPage from './pages/CartPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
-  
   return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-blue-600">
-        ¡Bienvenido a Makers Store!
-      </h1>
-    </div>
-  )
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        {/* Futuras rutas: detalle de producto, perfil de usuario, etc. */}
+      </Routes>
+    </Layout>
+  );
 }
 
-export default App
+export default App;

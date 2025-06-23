@@ -58,6 +58,7 @@ Proyecto de ecommerce desarrollado con React, TypeScript, Tailwind CSS y Supabas
 
 ## 🚀 Objetivo
 
+Permitir la gestión y compra de componentes electrónicos para proyectos de robótica y makers, una plataforma web con funcionalidades tanto para administradores de negocio como para clientes.
 Permitir la gestión y compra de componentes electrónicos para proyectos de robótica y makers, desde una plataforma web con funcionalidades tanto para administradores de negocio como para clientes.
 
 ---
@@ -100,21 +101,3 @@ ecommerce-admin/
 ├── vite.config.ts
 ├── tsconfig.json
 └── README.md
-
----
-
-## 📌 Instalación local
-
-```bash
-npm install
-npm run dev
-
-🧪 Próximamente
-Panel administrador con métricas en gráficas.
-
-Gestión de productos (CRUD).
-
-Simulación de compras y gestión de pedidos.
-
-Despliegue automático con GitHub Actions.
-

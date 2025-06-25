@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// src/components/Navbar.tsx
+import React from 'react';
+import { Link } from 'react-router-dom'; // Usaremos react-router-dom más adelante
 
 const Navbar: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const Navbar: React.FC = () => {
           <Link to="/cart" className="hover:text-blue-200">
             Carrito
           </Link>
-          {/* Aquí añadir enlaces de autenticación, después */}
+          {/* Aquí podríamos añadir enlaces de autenticación, que veremos después */}
           <Link to="/login" className="hover:text-blue-200">
             Iniciar Sesión
           </Link>

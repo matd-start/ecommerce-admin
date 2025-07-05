@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import { useParams } from 'react-router-dom'; // Para obtener el ID del producto de la URL
+import { useParams } from 'react-router-dom'; 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../services/supabaseClient'; 
-
 
 interface Product {
   id: string;

@@ -38,12 +38,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-200 disabled:bg-gray-400"
           disabled={product.stock === 0}
           onClick={(e) => {
-            e.preventDefault();
-            // Lógica para añadir al carrito (pendiente la implementare mas adelante)
+            e.preventDefault();// Lógica para añadir al carrito(pendiente la implementare mas adelante)
             console.log(`Añadir ${product.name} al carrito`);
           }}
         >
           {product.stock > 0 ? 'Añadir al Carrito' : 'Agotado'}
+
         </button>
       </div>
     </Link>

@@ -1,4 +1,3 @@
-// src/pages/LoginPage.tsx
 import React, { useState } from "react";
 import LockIcon from "../components/LockIcon"; // Importa el componente del candado
 

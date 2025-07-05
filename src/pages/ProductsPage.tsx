@@ -4,9 +4,7 @@ import { supabase } from '../services/supabaseClient';
 import ProductCard from '../components/ProductCard'; 
 import { Link } from 'react-router-dom';
 
-// Definimos la interfaz del producto para TypeScript
-// Esto ayuda a tener tipado fuerte de esta manera evito errores comunes
-// y mejora la autocompletación en el editor.
+// Definimos la interfaz del producto para TypeScript Esto ayuda a tener tipado fuerte de esta manera evito errores comunes y mejora la autocompletación en el editor.
 interface Product {
   id: string;
   name: string;
@@ -16,9 +14,7 @@ interface Product {
   category: string;
   stock: number;
 }
-
-// Función para obtener los productos desde Supabase
-// Esta función se usará con tank Query para obtener los datos de la base de datos.
+// Función para obtener los productos desde Supabase Esta función se usará con tank Query para obtener los datos de la base de datos.
 const fetchProducts = async (): Promise<Product[]> => {
   const { data, error } = await supabase.from('products').select('*');
 
@@ -121,7 +117,6 @@ const ProductsPage: React.FC = () => {
           <option value="Placas de Desarrollo">Placas de Desarrollo</option>
           {/* Para añadir más categorías aquí */}
         </select>
-
         {/* Selector de Ordenar Por */}
         <select
           className="p-3 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"

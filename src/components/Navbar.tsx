@@ -1,6 +1,5 @@
-// src/components/Navbar.tsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Usaremos react-router-dom más adelante
+import { Link } from 'react-router-dom'; 
 
 const Navbar: React.FC = () => {
   return (

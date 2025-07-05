@@ -6,7 +6,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-160px)] text-center p-4">
       {/* Sección Hero - Banner principal */}
-<section className="relative w-full max-w-4xl mb-12 rounded-xl shadow-xl overflow-hidden">
+     <section className="relative w-full max-w-4xl mb-12 rounded-xl shadow-xl overflow-hidden">
       {/* Fondo con imagen desenfocada */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-50 "
@@ -36,7 +36,6 @@ const HomePage: React.FC = () => {
       <section className="w-full max-w-5xl mb-12">
         <h2 className="text-3xl font-bold text-gray-800 mb-8">Categorías Populares</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
           {/* Tarjeta de Ctg 1 */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
             <img src="https://via.placeholder.com/100?text=Micro" alt="Microcontroladores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
@@ -46,7 +45,6 @@ const HomePage: React.FC = () => {
               Ver más
             </Link>
           </div>
-
           {/* Tarjeta de Ctg 2 */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
             <img src="https://via.placeholder.com/100?text=Sensor" alt="Sensores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
@@ -56,7 +54,6 @@ const HomePage: React.FC = () => {
               Ver más
             </Link>
           </div>
-
           {/* Tarjeta de Ctg 3 */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
             <img src="https://via.placeholder.com/100?text=Actuador" alt="Actuadores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
@@ -68,7 +65,6 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-
       {/* Sección para Testimonios (ejemplo) */}
       <section className="bg-white py-12 px-6 w-full max-w-4xl rounded-lg shadow-lg mb-12">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">Testimonios</h2>
@@ -82,7 +78,6 @@ const HomePage: React.FC = () => {
         </div>
         </section>
         {/* buscar img o un id de cliente pendiente */}
-
       <section className="bg-gray-100 py-16 px-6 w-full max-w-4xl rounded-lg shadow-inner">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           ¿Por Qué Elegir Makers Store?

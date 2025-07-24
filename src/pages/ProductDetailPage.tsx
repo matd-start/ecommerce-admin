@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
-import { useParams } from 'react-router-dom'; 
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '../services/supabaseClient'; 
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { supabase } from '../services/supabaseClient';
+import { useCartStore } from '../store/cartStore'; // Importa el store
 
+// Interfaz para un producto
 interface Product {
   id: string;
   name: string;
@@ -14,122 +14,153 @@ interface Product {
   stock: number;
 }
 
-// Función para obtener un producto por su ID
-const fetchProductById = async (productId: string): Promise<Product | null> => {
-  const { data, error } = await supabase.from('products').select('*').eq('id', productId).single();
+const ProductDetailPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1); // Estado para la cantidad a añadir
+
+  const addItem = useCartStore((state) => state.addItem); // Acción para añadir al carrito
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true);
+      setError(null);
+      if (!id) {
+        setError('ID de producto no proporcionado.');
+        setLoading(false);
+        return;
+      }
+      try {
+        // Obtener datos de un solo producto
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error) {
+          throw error;
+        }
+
+        if (data) {
+          setProduct(data as Product);
+        } else {
+          setError('Producto no encontrado.');
+        }
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        console.error('Error fetching product:', errorMessage);
+        setError('Error al cargar el producto. Inténtalo de nuevo.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[calc(100vh-160px)]">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-blue-500"></div>
+      </div>
+    );
+  }
 
   if (error) {
-    // Si no se encuentra el producto, Supabase lanza un error si single() no devuelve nada
-    // Podemos manejarlo para devolver null o un error específico
-    if (error.code === 'PGRST116') { // Código de error si no encuentra un single row
-      return null;
-    }
-    throw new Error(error.message);
-  }
-  return data as Product;
-};
-
-const ProductDetailPage: React.FC = () => {
-  // Obtenemos el ID del producto de los parámetros de la URL
-  const { id } = useParams<{ id: string }>();
-
-  // Usamos useQuery para obtener los detalles del producto
-  const { data: product, isLoading, isError, error } = useQuery<Product | null, Error>({
-    queryKey: ['product', id], // La clave de la consulta ahora incluye el ID
-    queryFn: () => (id ? fetchProductById(id) : Promise.resolve(null)), // Asegúrate de que id exista
-    enabled: !!id, // Solo ejecuta la consulta si id tiene un valor
-  });
-
-  if (isLoading) {
     return (
-      <div className="text-center py-12">
-        <p className="text-xl text-gray-600">Cargando detalles del componente...</p>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="text-center py-12 text-red-600">
-        <p className="text-xl">Error al cargar el componente: {error.message}</p>
-      </div>
-    );
-  }
-
-  if (!product) {// Si no se encuentra el producto, mostramos un mensaje de error
-    return (
-      <div className="text-center py-12">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Componente No Encontrado</h2>
-        <p className="text-lg text-gray-600">
-          Lo sentimos, el componente que buscas no lo tenemos ahora.
-        </p>
-        <Link to="/products" className="mt-6 inline-block bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition-colors duration-200">
+      <div className="text-center py-10">
+        <p className="text-red-500 text-xl">{error}</p>
+        <button onClick={() => navigate('/products')} className="mt-4 text-blue-600 hover:underline">
           Volver a Productos
-        </Link>
+        </button>
       </div>
     );
   }
+
+  if (!product) {
+    return (
+      <div className="text-center py-10">
+        <p className="text-gray-600 text-xl">Producto no disponible.</p>
+        <button onClick={() => navigate('/products')} className="mt-4 text-blue-600 hover:underline">
+          Volver a Productos
+        </button>
+      </div>
+    );
+  }
+
+  // Verificar si el producto está agotado
+  const isOutOfStock = product.stock <= 0;
+
+  const handleAddToCart = () => {
+    if (product) {
+      addItem(product); // Añade solo el producto al carrito
+      navigate('/cart'); // Opcional: redirige al carrito después de añadir
+    }
+  };
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
-      <Link to="/products" className="flex items-center text-blue-600 hover:underline mb-6 text-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-        </svg>
-        Volver a la lista de productos
-      </Link>
-
-      <div className="bg-white rounded-lg shadow-xl overflow-hidden p-6 lg:p-10 flex flex-col lg:flex-row gap-8">
-        {/* Columna Izquierda: Imagen del Producto */}
-        <div className="lg:w-1/2 flex justify-center items-center">
+    <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white rounded-lg shadow-lg p-6 md:p-10 flex flex-col md:flex-row gap-8">
+        {/* Columna de Imagen */}
+        <div className="w-full md:w-1/2 flex justify-center items-center">
           <img
-            src={product.image_url || 'https://via.placeholder.com/600x400?text=Imagen+No+Disponible'}
+            src={product.image_url || 'https://via.placeholder.com/600x400?text=No+Image'}
             alt={product.name}
-            className="w-full max-w-lg h-auto rounded-lg shadow-md object-cover transition-transform duration-300 hover:scale-105"
+            className="w-full max-w-lg h-auto rounded-lg shadow-md object-cover"
           />
         </div>
 
-        {/* Columna Derecha: Detalles del Producto */}
-        <div className="lg:w-1/2">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-3">{product.name}</h1>
-          <p className="text-blue-700 text-2xl font-bold mb-4">${product.price.toFixed(2)}</p>
-
-          <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-            {product.description}
-          </p>
-
-          <div className="flex items-center mb-6">
-            <span className="text-gray-600 font-semibold mr-2">Categoría:</span>
-            <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">{product.category}</span>
-          </div>
-
-          <div className="flex items-center mb-8">
-            <span className="text-gray-600 font-semibold mr-2">Disponibilidad:</span>
-            {product.stock > 0 ? (
-              <span className="text-green-600 font-bold text-lg">En Stock ({product.stock} unidades)</span>
+        {/* Columna de Detalles */}
+        <div className="w-full md:w-1/2 flex flex-col">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">{product.name}</h1>
+          <p className="text-gray-600 text-lg mb-6 leading-relaxed">{product.description}</p>
+          
+          <div className="flex items-baseline mb-6">
+            <span className="text-5xl font-extrabold text-blue-700 mr-4">${product.price.toFixed(3)}</span>
+            {isOutOfStock ? (
+              <span className="text-red-600 text-xl font-semibold">AGOTADO</span>
             ) : (
-              <span className="text-red-600 font-bold text-lg">Agotado</span>
+              <span className="text-green-600 text-lg font-semibold">
+                En Stock: {product.stock} unidades
+              </span>
             )}
           </div>
 
+          {!isOutOfStock && (
+            <div className="flex items-center gap-4 mb-8">
+              <label htmlFor="quantity" className="text-lg font-medium text-gray-700">Cantidad:</label>
+              <input
+                type="number"
+                id="quantity"
+                min="1"
+                max={product.stock} // Limita la cantidad al stock disponible
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))} // Asegura que sea al menos 1
+                className="w-24 p-2 border border-gray-300 rounded-md text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
+
           <button
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg text-xl font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            disabled={product.stock === 0}
-            // Aquí se añadiría la lógica para añadir al carrito
+            onClick={handleAddToCart}
+            className={`w-full py-3 px-6 rounded-lg text-xl font-semibold transition-colors duration-300 transform hover:scale-105 ${
+              isOutOfStock ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 text-white hover:bg-green-700'
+            }`}
+            disabled={isOutOfStock}
           >
-            {product.stock > 0 ? 'Añadir al Carrito' : 'Producto Agotado'}
+            {isOutOfStock ? 'Producto Agotado' : 'Añadir al Carrito'}
           </button>
 
-          {/* Opcional: Sección de Características  */}
-          <div className="mt-10 pt-8 border-t border-gray-200">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Especificaciones Clave</h3>
-            <ul className="list-disc list-inside text-gray-700 space-y-2">
-              <li>Voltaje de Operación: 3.3V / 5V</li>
-              <li>Interfaz: I2C, SPI, UART</li>
-              <li>Dimensiones: X mm x Y mm</li>
-              {/* Aquí irían datos más específicos del producto */}
-            </ul>
-          </div>
+          <button
+            onClick={() => navigate('/products')}
+            className="mt-4 w-full py-3 px-6 rounded-lg text-lg font-semibold text-blue-600 border border-blue-600 hover:bg-blue-50 transition-colors duration-300"
+          >
+            Volver a Productos
+          </button>
         </div>
       </div>
     </div>

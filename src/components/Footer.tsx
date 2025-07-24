@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
           <ul className="space-y-2">
             <li><Link to="/products" className="text-sm text-gray-300 hover:text-white">Productos</Link></li>
             {session && (
-              <li><Link to="/orders" className="text-sm text-gray-300 hover:text-white">Mis Pedidos</Link></li>
+              <li><Link to="/profile" className="text-sm text-gray-300 hover:text-white">Mi Perfil</Link></li>
             )}
           </ul>
         </div>

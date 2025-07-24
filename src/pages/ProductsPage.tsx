@@ -36,13 +36,13 @@ const ProductsPage: React.FC = () => {
     queryFn: fetchProducts,
   });
 
-  // Simulamos el filtrado y ordenamiento para la vista de plantilla
+  
   const filteredAndSortedProducts = React.useMemo(() => {
     if (!products) return [];
 
     let filtered = products;
 
-    // Simulación de búsqueda usamos esta logica para filtrar los productos
+    // logica para filtrar los productos
     // por nombre o descripción según la letra o termino de búsqueda ingresado.
     // sin importar si esta en mayúsculas o minúsculas.
     if (searchTerm) {

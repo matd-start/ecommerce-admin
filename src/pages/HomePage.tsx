@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Tarjeta de Ctg 1 */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="https://via.placeholder.com/100?text=Micro" alt="Microcontroladores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
+            <img src="https://hardzone.es/app/uploads-hardzone.es/2021/03/Microcontrolador-768x625.jpg" alt="Microcontroladores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">Microcontroladores</h3>
             <p className="text-gray-600 text-center text-sm mb-4">Aqui va el cerebro de tus proyectos.</p>
             <Link to="/products?category=Microcontroladores" className="text-blue-600 hover:underline font-medium">
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
           </div>
           {/* Tarjeta de Ctg 2 */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="https://via.placeholder.com/100?text=Sensor" alt="Sensores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
+            <img src="https://static.weg.net/medias/images/h3f/h10/WDC_SensoresIndustriais_SensoresCapacitivos_515Wx515H.jpg" alt="Sensores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">Sensores</h3>
             <p className="text-gray-600 text-center text-sm mb-4">Asi percibimos el mundo real. bip!!..</p>
             <Link to="/products?category=Sensores" className="text-blue-600 hover:underline font-medium">
@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
           </div>
           {/* Tarjeta de Ctg 3 */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="https://via.placeholder.com/100?text=Actuador" alt="Actuadores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
+            <img src="https://diteico.com/wp-content/uploads/2017/07/TTF-frontal.jpg" alt="Actuadores" className="mb-4 rounded-full" />{/* buscar img en src pendiente */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">Actuadores</h3>
             <p className="text-gray-600 text-center text-sm mb-4">Movimiendo a tus ideas.</p>
             <Link to="/products?category=Actuadores" className="text-blue-600 hover:underline font-medium">

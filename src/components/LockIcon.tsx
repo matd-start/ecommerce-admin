@@ -11,7 +11,7 @@ const LockIcon: React.FC<LockIconProps> = ({ isOpen }) => {
           isOpen ? "rotate-[-45deg] -translate-x-5" : "-translate-x-1/2"
         }`}
         style={{
-          top: isOpen ? "18px" : "0px", // ¡aquí controlas que baje!
+          top: isOpen ? "18px" : "0px", 
           transformOrigin: "bottom left",
           borderBottomColor: "transparent",
         }}

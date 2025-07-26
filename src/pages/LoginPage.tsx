@@ -137,7 +137,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-12 min-h-[calc(100vh-160px)] bg-gray-50">
+    <div className="flex justify-center items-center py-12 min-h-[calc(100vh-160px)] bg-gray-300">
       <div className="relative w-full max-w-4xl min-h-[400px] h-auto md:h-[450px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         
         <div

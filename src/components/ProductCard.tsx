@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+    <div className="bg-gray-200 border-2 border-transparent border-b-blue-500 rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
       <Link to={`/products/${product.id}`} className="block relative h-48 overflow-hidden">
         <img
           src={product.image_url || 'https://via.placeholder.com/400x300?text=No+Image'}
@@ -56,12 +56,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-200">
           <span className="text-2xl font-bold text-blue-700">${product.price.toFixed(3)}</span>
           <button
-            onClick={handleAddToCart} //  función handleAddToCart
+            onClick={handleAddToCart} 
             className={`py-1 px-2 rounded-md text-white font-semibold transition-colors duration-300 relative overflow-hidden
               ${isOutOfStock ? 'bg-gray-400 cursor-not-allowed' :
-                addedToCart ? 'bg-green-500' : 'bg-blue-600 hover:bg-blue-700' // Cambia de color si se añadió
+                addedToCart ? 'bg-green-500' : 'bg-blue-600 hover:bg-blue-700' 
               }`}
-            disabled={isOutOfStock || addedToCart} // Deshabilita si está agotado o si la animación está activa
+            disabled={isOutOfStock || addedToCart} 
           >
             {addedToCart ? (
               <span className="flex items-center justify-center">
@@ -69,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 ¡Añadido!
               </span>
             ) : (
-              isOutOfStock ? 'Sin Stock' : 'Al Carrito'
+              isOutOfStock ? 'Sin Stock' : 'Añadir'
             )}
           </button>
         </div>
